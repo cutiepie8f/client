@@ -1,0 +1,230 @@
+/* #root{
+    width: 1517px;;
+    height: 1085px;
+    display: block;
+    border: 1px solid #FBFBFB;
+    background: #FBFBFB 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+} */
+*{
+    text-shadow: 0px 0px 1px;
+}
+#header{
+    height: 80px;
+    background: #CE0505 0% 0% no-repeat padding-box;;
+}
+#logo{
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 50%;
+    /* padding: 3px;  */
+    margin: 5px 0 0 240px;
+    display: inline block;
+    /* margin-left: 11px; */
+}
+#logo_name{
+    /* padding: 10px;  */
+    font: normal normal 600 33px/50px Poppins;
+    color: #EB2929;
+    margin-left: 11px 
+}
+#loginButton{
+    width: 43px;
+    height: 23px;
+    display: inline block;
+    position: absolute;
+    padding-left: 1030px;
+    /* margin-top: -55px; */
+    top: 26px;
+}
+#login_text{
+    font: normal normal 21px/25px Poppins;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    text-shadow: 0px 0px 1px;
+ }
+ #createAccount{
+     width: 203px;
+     height: 46px;
+     border: 1px solid #FFFFFF;
+     border-radius: 3px;
+     margin-left: 30cm;
+     position: absolute;
+     /* margin-top: -62px; */
+     top: 17px;
+     text-align: center;
+ }
+ #create_account-text{
+    font: normal normal 18px/25px Poppins;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    background-color: #CE0505;
+    border: #CE0505;
+    margin-top: 10px;
+    text-shadow: 0px 0px 1px;
+
+
+ }
+ #background_image{
+    /* background-image: url("../../public/images/bg_image.png"); */
+    /* background-repeat: no-repeat; */
+    width: 961px;
+    height: 409px;
+    margin: auto;
+    position: relative;
+    margin-top: 55px;
+    box-shadow: 0px 3px 6px #00000029;
+
+}
+.coverImg{
+   width: 60rem;
+   height: 26rem;
+}
+#image_gallery_button
+{
+    width: 242px;
+   height: 48px;
+   background: #FFFFFF 0% 0% no-repeat padding-box;
+   border-radius: 3px;
+   opacity: 0.8;
+   position: absolute;
+   /* margin-top: 329px;
+   margin-left: 696px  */
+   margin: -89px 0 0 696px;
+
+}
+#image_gallery_text{
+    text-align: left;
+   font: normal normal 600 16px/30px Poppins;
+   letter-spacing: 0px;
+   color: #192F60;
+   opacity: 1;
+   background-color: #FFFFFF;
+   border: #FFFFFF;
+   margin: 9px;
+}
+#restaurant-name{
+    width: 339px;
+    height: 43px;
+    position: relative;
+    text-align: left;
+    font: normal normal 600 22px/46px Poppins;
+    letter-spacing: 0px;
+    color: #192F60;
+    opacity: 1;
+    margin-top: 40px;
+    margin-left: 174px 
+}
+#place_order{
+    width: 223px;
+    height: 50px;
+    background: #CE0505 0% 0% no-repeat padding-box;
+    border-radius: 6px;
+    opacity: 1;
+    position: relative;
+    margin-top: 45px;
+    margin-left: 940px;
+    
+}
+#place_order_button{
+    padding: 11px;
+    margin-left: 8px;
+    text-align: center;
+    font: normal normal 19px/27px Poppins;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+    background-color: #CE0505;
+    border: #CE0505;
+}
+
+.tabs {
+    min-height: 200px;
+    position: relative;
+    background: white;
+    margin: 50px 0px 30px 5px;
+    clear: both;
+}
+
+.tab {
+    float: left;
+}
+
+.tab label {
+    margin-left: 10px;
+    position: relative;
+    left: 8px;
+    top: -22px;
+}
+
+.tab [type=radio] {
+    display: none;
+}
+
+.content {
+    position: absolute;
+    left: 0;
+    border-top: 2px solid #D2D9E6;
+    top: 3px;
+    right: 0;
+    bottom: 0;
+    padding: 22px;
+    opacity: 0;
+}
+
+.tabs [type=radio]:checked~label {
+    background: white;
+    z-index: 0;
+    border-bottom: 3px solid red;
+}
+
+.tabs [type=radio]:checked~label~.content {
+    z-index: 0;
+    opacity: 1;
+}
+
+.about {
+    font: normal normal 600 19px/33px Poppins;
+    color: #192F60;
+    height: 50px;
+}
+
+.head {
+    /* font-size: 15px;
+    font-weight: 900;
+    color: #192F60; */
+    font: normal normal 600 18px/27px Poppins;
+    color: #192F60;
+    text-shadow: 0px 0px 1px;
+    height: 30px;
+}
+
+.value {
+    font: normal normal normal 17px/30px Poppins;
+    color: #192F60;
+    text-shadow: 0px 0px 1px;
+    height: 52px;
+}
+
+.value-red {
+    font-size: 15px;
+    color: #F67082;
+    height: 40px;
+    margin-top: -20px;
+}
+.footer-part{
+    margin: -27px 0 0 160px;
+    width: 64rem;
+
+}
+.radiotext{
+    font: normal normal 600 18px/27px Poppins;
+    color: #192F60;
+    text-shadow: 0px 0px 1px;
+}
