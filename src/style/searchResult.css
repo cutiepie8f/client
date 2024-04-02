@@ -228,3 +228,13 @@
     color: #192F60;
     text-shadow: 0px 0px 1px;
 }
+
+.gallery_img {
+    height: 28em;
+    border-radius: 20px;
+}
+
+.close{
+    float: right;
+    font-weight: 800;
+}

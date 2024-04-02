@@ -3,13 +3,32 @@ import '../style/searchResult.css';
 import axios from 'axios';
 import queryString from 'query-string';
 import navHook from "./nav";
+import Modal from 'react-modal';
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+
+const customStyles = {
+    overlay:{
+        backgroundColor: "rgba(0,0,0,0.8)"
+    },
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+};
+
 
 class searchResult extends React.Component{
     constructor(){
         super();
         this.state ={
             restaurant : [],
-            resId: undefined
+            resId: undefined,
+            galleryModal: false
         }
      }
      componentDidMount(){
@@ -28,12 +47,32 @@ class searchResult extends React.Component{
         .catch((err => console.log(err)));
 
     }
-    selectRestaurant = (ss) => {
-        this.props.navigate(`/searchImage?restuarant=${ss}`);
+
+     // For Modal
+     handleModal = (state, value) => {
+        const {resId} = this.state;
+
+        if(state == "menuModal" && value == true){
+            axios({
+                url: `http://localhost:8000/menu/${resId}`,
+                method: 'get',
+                headers: { 'Content-Type': 'application/JSON'}
+            })
+            .then( res => {
+                this.setState({ menu: res.data.menu })
+            })
+            .catch((err => console.log(err)))
+        }
+
+        this.setState({ [state]: value });
     }
+
+    // selectRestaurant = (ss) => {
+    //     this.props.navigate(`/searchImage?restuarant=${ss}`);
+    // }
           render(){
-            const { restaurant } = this.state;
-            console.log(restaurant);
+            const { restaurant, galleryModal, menuModal, menu, } = this.state;
+            console.log(galleryModal);
              return(
                 <div>
                     
@@ -61,7 +100,7 @@ class searchResult extends React.Component{
                                 <img src={restaurant.thumb} className="coverImg"/>
                                
                                     <div id="image_gallery_button">
-                                        <button id="image_gallery_text" onClick={() => this.selectRestaurant(restaurant._id)}>Click to see Image Gallery</button>
+                                        <button id="image_gallery_text" onClick={() => this.handleModal('galleryModal', true)} >Click to see Image Gallery</button>
                                     </div>
                                 
                             </div>
@@ -119,7 +158,24 @@ class searchResult extends React.Component{
                             </div>
                         </div>
                            {/* <!--done-->    */}
-                    </div>
+                    
+
+                        <Modal
+                            isOpen={galleryModal}
+                            style={customStyles}
+                        >
+                            <div onClick={() => this.handleModal('galleryModal', false)} className="close"><i class="bi bi-x-lg"></i></div>
+                            <div>
+                            <Carousel showIndicators={false} showThumbs={false} showStatus={false}>
+                                <div>
+                                    <img src={restaurant.thumb} className="gallery_img" />
+                                </div>
+                            </Carousel>
+                            </div>
+                      </Modal>
+
+                           
+            </div>
              
                        
                        

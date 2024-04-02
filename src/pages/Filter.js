@@ -2,6 +2,7 @@ import React from 'react';
 import '../style/filterpage.css'
 import axios from 'axios';
 import queryString from 'query-string';
+import navHook from "./nav";
 
 class Filter extends React.Component{
     
@@ -12,29 +13,50 @@ class Filter extends React.Component{
             restaurant: [],
             mealtypes : [],
             mealId : undefined,
-            // rest : []
-
+            Cuisine: [],
+            sort: 1, 
+            page: 1,
+            meals: []
+          
         }
     }
 
-     componentDidMount(){
-        // mealtype API
+    
 
+
+     // Post mealtype API
+     componentDidMount() {
         const q = queryString.parse(window.location.search);
         const { mealtype } = q;
-        //console.log(mealtype);
-        //location API
+        const int = parseInt(mealtype);
+        
+        const filterObj = {
+            mealtype: int
+        }
+
         axios({
-            url : `http://localhost:8000/mealtype/${mealtype}`,
-            method : 'get',
-            headers : {'Content-Type': 'application/JSON'}
+            url: 'http://localhost:8000/filter',
+            method: 'POST',
+            headers: { 'Content-Type': 'application/JSON'},
+            data: filterObj
         })
-        .then(res => {
-            this.setState({ meals : res.data.meal, mealId: mealtype})
+        .then( res => {
+            this.setState({ restaurant: res.data.restraunts, mealtype: int })
         })
-        .catch((err => console.log(err)));
-          
-        //location API
+        .catch((err => console.log(err)))
+
+        // Mealtype
+        axios({
+            url: `http://localhost:8000/mealtype/${int}`,
+            method: 'GET',
+            headers: { 'Content-Type': 'application/JSON'}
+        })
+        .then( res => {
+            this.setState({ meals: res.data.meal })
+        })
+        .catch((err => console.log(err)))
+
+        // GET location API
         axios({
             url: 'http://localhost:8000/location',
             method: 'get',
@@ -45,7 +67,6 @@ class Filter extends React.Component{
         })
         .catch((err => console.log(err)))
     }
-
     // POST location API
     handleLocation = (val) => {
         const { lcost, hcost } = this.state;
@@ -69,15 +90,15 @@ class Filter extends React.Component{
         .catch((err => console.log(err)))
          
          //location API
-        //  axios({
-        //     url: `http://localhost:8000/rest/${loca}`,
-        //     method: 'get',
-        //     headers: { 'Content-Type': 'application/JSON'}
-        // })
-        // .then( res => {
-        //     this.setState({ rest: res.data.restaurants })
-        // })
-        // .catch((err => console.log(err)))
+         axios({
+            url: `http://localhost:8000/rest/${loca}`,
+            method: 'get',
+            headers: { 'Content-Type': 'application/JSON'}
+        })
+        .then( res => {
+            this.setState({ rest: res.data.restaurants })
+        })
+        .catch((err => console.log(err)))
 
     }
 
@@ -102,12 +123,108 @@ class Filter extends React.Component{
         .catch((err => console.log(err)))
 
     }
+
+     // handle Cuisine
+     handleCuisine = (i) => {
+        const { loca, lcost, hcost, sort, page, mealtype } = this.state;
+
+        let tempCuisine = this.state.Cuisine.slice();
+
+        if(tempCuisine.indexOf(i) === -1) {
+            tempCuisine.push(i);
+        }else{
+            tempCuisine.splice(tempCuisine.indexOf(i),1);
+        }
+
+        const filterObj = {
+            location: loca,
+            lcost,
+            hcost,
+            cuisine: tempCuisine.length > 0 ? tempCuisine : undefined,
+            sort, 
+            page, 
+            mealtype
+        }
+
+        axios({
+            url: 'http://localhost:8000/filter',
+            method: 'POST',
+            headers: { 'Content-Type': 'application/JSON'},
+            data: filterObj
+        })
+        .then( res => {
+            this.setState({ restaurant: res.data.restraunts, Cuisine: tempCuisine })
+        })
+        .catch((err => console.log(err)))
+    }
+
+     // handle Sort
+     handleSort = (sort) => {
+
+        const { loca, Cuisine, lcost, hcost, page, mealtype } = this.state;
+        
+        const filterObj = {
+            location: loca,
+            lcost,
+            hcost,
+            Cuisine,
+            sort, 
+            page, 
+            mealtype
+        }
+
+        axios({
+            url: 'http://localhost:8000/filter',
+            method: 'POST',
+            headers: { 'Content-Type': 'application/JSON'},
+            data: filterObj
+        })
+        .then( res => {
+            this.setState({ restaurant: res.data.restraunts, sort })
+        })
+        .catch((err => console.log(err)))
+    }
+
+     // handle Page
+    handlePage = (page) => {
+        const { loca, Cuisine, lcost, hcost, sort, mealtype } = this.state;
+        
+        const filterObj = {
+            location: loca,
+            lcost,
+            hcost,
+            Cuisine,
+            sort,
+            page, 
+            mealtype
+        }
+
+        axios({
+            url: 'http://localhost:8000/filter',
+            method: 'POST',
+            headers: { 'Content-Type': 'application/JSON'},
+            data: filterObj
+        })
+        .then( res => {
+            this.setState({ restaurant: res.data.restraunts, page })
+        })
+        .catch((err => console.log(err)))
+    }
+
+    // Navigate
+    handleNavigate= (ss) => {
+        this.props.navigate(`/details?restuarant=${ss}`);
+    }
+
+    
     
 
    render(){
     // const {meals} = this.state;
     const { meals, loc, restaurant, rest } = this.state;
     console.log(meals);
+
+
     
         return(
               
@@ -231,11 +348,11 @@ class Filter extends React.Component{
                                 <div class="sort">
                                     <label class='head-text' style={{font: "normal normal 600 16px/27px Poppins;"}}>Sort</label>
                                     <div id="radioSort-one">
-                                    <input class="sort-radiobutton" type="radio" id="price-low-to-high" name="sort"/>
+                                    <input class="sort-radiobutton" type="radio" id="price-low-to-high" name="sort" onClick={() => this.handleSort(1)}/>
                                     <label class="sort-radiobutton-text" for="price-low-to-high">Price low to high</label> 
                                 </div>
                                 <div id="radioSort-two">
-                                    <input class="sort-radiobutton" type="radio" id="price-high-to-low" name="sort"/>
+                                    <input class="sort-radiobutton" type="radio" id="price-high-to-low" name="sort" onClick={() => this.handleSort(-1)}/>
                                     <label class="sort-radiobutton-text" for="price-high-to-low">Price high to low</label>
                                 </div>
                                 </div>
@@ -245,42 +362,45 @@ class Filter extends React.Component{
                                 {/* <!--block-2--> */}
                          
                                                    
-                    {
                     
-                    restaurant.map((res) => {
+                    
+                    {/* // restaurant.map((res) => { */}
+                        { restaurant.length != 0 ?
+                            restaurant.map((res) => {
 
                             return( 
-                                <div>                             
-                                    <div id="block-2">
-                                    <a href="" style={{textDecoration : "unset"}}>
-                                                <div class="shop-details-1" >
-                                                    <img class="image1" src={res.thumb} alt="food image"/>
-                                                    <h3 class="shop-1-heading-1">{res.name}</h3>
-                                                    <h4 class="shop-1-heading-2">{res.city_name}</h4>
-                                                    <h1 class="shop-1-heading-3">{res.address}</h1>
-                                                </div>
-                                        </a>
-                                        <hr/>
-                                        <a href="" style={{textDecoration : "unset"}}>
-                                        <div  style={{marginLeft : "59px"}}>
-                                            <div class="price-1">
-                                                <h5 class="">CUISINES: </h5>
-                                                <h5 class="cost-1-price-detail">{res.Cuisine.map(cu => `${cu.name}, `)}</h5>
-                                            </div>
-                                            <div class="price-1">
-                                                <h5 class="">COST FOR TWO: </h5>
-                                                <h5 class="cost-1-price-detail">₹ {res.cost}</h5>
-                                            </div>
-                                        </div>
-                                        </a>
-                                                    
+
+                                <div class="results" onClick={() => this.handleNavigate(res._id)}>
+                                <div class="d-flex">
+                                    <div class="lt-box">
+                                        <img src={res.thumb} alt="picture" class="img-fluid img-qse" />
+                                    </div>
+                                    <div class="rt-box">
+                                        <h4 class="result-heading">{res.name}</h4>
+                                        <p class="result-subheading">{res.city_name}</p>
+                                        <p class="result-text">{res.address}</p>
                                     </div>
                                 </div>
                                 
+                                <hr style={{color: "grey;"}} />
 
-                            )
+                                <div class="d-flex">
+                                    <div class="ll-box">
+                                        <p class="result-text-2">CUISINES:</p>
+                                        <p class="result-text-2">COST FOR TWO:</p>
+                                    </div>
+                                    <div class="rl-box">
+                                        <p class="result-text-blue">{res.Cuisine.map(cu => `${cu.name}, `)}</p>
+                                        <p class="result-text-blue">₹{res.cost}</p>
+                                    </div>
+                                </div>
+                            </div>
+                                
+                                )
+                            }) : <div className="results-2"> Sorry, No result found... </div>} 
+                            {/* )
                      })
-                     }
+                     } */}
                                                    
                                                                                                   
                               
@@ -292,15 +412,15 @@ class Filter extends React.Component{
                                 <div class="pagination">
                                     <button class="pagination_box" style={{opacity: "40%;"}}>&lt;</button>
                                     &ensp;
-                                    <button class="pagination_box" style={{backgroundcolor: "#8C96AB;", color: "#FFFFFF;"}}>1</button>
+                                    <button class="pagination_box" style={{backgroundcolor: "#8C96AB;", color: "#FFFFFF;"}}  onClick={() => this.handlePage(1)}>1</button>
                                     &ensp;
-                                    <button class="pagination_box">2</button>
+                                    <button class="pagination_box"  onClick={() => this.handlePage(2)}>2</button>
                                     &ensp;
-                                    <button class="pagination_box">3</button>
+                                    <button class="pagination_box"  onClick={() => this.handlePage(3)}>3</button>
                                     &ensp;
-                                    <button class="pagination_box">4</button>
+                                    <button class="pagination_box"  onClick={() => this.handlePage(4)}>4</button>
                                     &ensp;
-                                    <button class="pagination_box">5</button>
+                                    <button class="pagination_box"  onClick={() => this.handlePage(5)}>5</button>
                                     &ensp;
                                     <button class="pagination_box">&gt;</button>     
                                 </div>
@@ -311,7 +431,9 @@ class Filter extends React.Component{
                 </div>
             </div>
             // </div>
+
+            
                
         )}}
 
-export default Filter;
+export default navHook(Filter);
