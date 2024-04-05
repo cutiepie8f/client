@@ -28,7 +28,10 @@ class searchResult extends React.Component{
         this.state ={
             restaurant : [],
             resId: undefined,
-            galleryModal: false
+            galleryModal: false,
+            menuModal: false,
+            menu: [],
+            formModal: false
         }
      }
      componentDidMount(){
@@ -51,6 +54,7 @@ class searchResult extends React.Component{
      // For Modal
      handleModal = (state, value) => {
         const {resId} = this.state;
+        console.log(resId);
 
         if(state == "menuModal" && value == true){
             axios({
@@ -67,12 +71,33 @@ class searchResult extends React.Component{
         this.setState({ [state]: value });
     }
 
+    // Adding number of elements
+    addItems = (index, operationType) => {
+        var total = 0;
+        const items = [...this.state.menu];
+        const item = items[index];
+
+        if(operationType == 'add'){
+            item.qty += 1;
+        } else {
+            item.qty -= 1;
+        }
+
+        items[index] = item;
+
+        items.map((x) => {
+            total += x.qty * x.price;
+        })
+        this.setState({ menu: items, subtotal: total })
+    }
+
+
     // selectRestaurant = (ss) => {
     //     this.props.navigate(`/searchImage?restuarant=${ss}`);
     // }
           render(){
-            const { restaurant, galleryModal, menuModal, menu, } = this.state;
-            console.log(galleryModal);
+            const { restaurant, galleryModal, menuModal, menu, subtotal, formModal } = this.state;
+            console.log(menu);
              return(
                 <div>
                     
@@ -117,7 +142,7 @@ class searchResult extends React.Component{
                 
                             {/* <!--Place order button--> */}
                             <div id="place_order">
-                            <button id="place_order_button">Place Online Order</button>
+                            <button id="place_order_button" onClick={() => this.handleModal('menuModal', true)}>Place Online Order</button>
                             </div>
                             {/* <!--end--> */}
                              
@@ -164,7 +189,7 @@ class searchResult extends React.Component{
                             isOpen={galleryModal}
                             style={customStyles}
                         >
-                            <div onClick={() => this.handleModal('galleryModal', false)} className="close"><i class="bi bi-x-lg"></i></div>
+                            <div onClick={() => this.handleModal('galleryModal', false)}><i class="bi bi-x-lg closegallery"></i></div>
                             <div>
                             <Carousel showIndicators={false} showThumbs={false} showStatus={false}>
                                 <div>
@@ -173,6 +198,84 @@ class searchResult extends React.Component{
                             </Carousel>
                             </div>
                       </Modal>
+
+
+                      <Modal
+                    isOpen={menuModal}
+                    style={customStyles}
+                >
+                    <div onClick={() => this.handleModal('menuModal', false)}><i class="bi bi-x-lg closeMenu"></i></div>
+                    <div>
+                        <h3 className="menu_restaurant_name">{restaurant.name}</h3>
+
+                        {/* Menu Item */}
+                        { menu?.map((item, index) => {
+                            console.log(item)
+                            return(
+                                
+                                <div className="menu">
+                                    <div className="menu_body">
+                                    <div id="sign-outerpart">
+                                        <div id="sign-innerpart"></div>
+                                    </div>
+                                        <h5 className="font_weight">{item.name}</h5>
+                                        <h5 className="font_weight">₹ {item.price}</h5>
+                                        <p className="item_details">{item.description}</p>
+                                    </div>
+
+                                    <div className="menu_image">
+                                        <img className="item_image" src={`./images/${item.image}`} alt="food" />
+                                        {/* <img className="item_image" src="./images/1.png" alt="food" /> */}
+                                        {
+                                            item.qty == 0 ? <div className="item_quantity_button" onClick={() => this.addItems(index, 'add')}>
+                                                ADD
+                                            </div> :
+                                            <div className="item_quantity_button">
+                                                <button  onClick={() => this.addItems(index, 'sub')}> - </button>
+                                                <span className="qty"> {item.qty} </span>
+                                                <button onClick={() => this.addItems(index, 'add')} style={{color: '#61B246'}}> + </button>
+                                            </div>
+                                        }
+                                        
+                                    </div>
+                                </div>
+                            )
+                        })}
+                        
+
+                        {/* Payment Details */}
+                        <div className="payment">
+                            <h4 className="total font_weight">Subtotal: ₹ {subtotal}</h4>
+                            <button className="btn btn-danger payment_button" onClick={() => {this.handleModal('menuModal', false); this.handleModal('formModal', true);}}>
+                                Pay Now
+                            </button>
+                        </div>
+
+                    </div>
+                </Modal>
+
+                <Modal
+                    isOpen={formModal}
+                    style={customStyles}
+                >
+                    <div onClick={() => this.handleModal('formModal', false)}><i class="bi bi-x-lg closeForm"></i></div>
+                    <div style={{ width: '24em' }}>
+                        <h3 className="menu_restaurant_name">{restaurant.name}</h3>
+
+                        <label htmlFor="name" className='label-text' style={{ marginTop: '10px' }}>Name</label>
+                        <input type="text" placeholder="Enter your name" style={{ width: '100%'}} className="form-control input-text" id="name" />
+
+                        <label htmlFor="mobile" className='label-text' style={{ marginTop: '10px' }}>Mobile Number</label>
+                        <input type="text" placeholder="Enter mobile number" style={{ width: '100%'}} className="form-control input-text" id="mobile" />
+
+                        <label htmlFor="address" className='label-text' style={{ marginTop: '10px' }}>Address</label>
+                        <textarea type="text" rows="4" placeholder="Enter your address" style={{ width: '100%'}} className="form-control input-text" id="address">
+                        </textarea>
+
+                        <button className="btn btn-success" style={{ float: "right", marginTop: "18px" }}>Proceed</button>
+                    </div>
+                </Modal>
+
 
                            
             </div>

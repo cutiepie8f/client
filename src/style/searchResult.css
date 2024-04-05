@@ -231,10 +231,154 @@
 
 .gallery_img {
     height: 28em;
-    border-radius: 20px;
+    border-radius: 35px;
+    padding: 1rem;
 }
 
-.close{
-    float: right;
+.closegallery{
     font-weight: 800;
+    position: relative;
+    top: -42px;
+    left: -26em;
+    float: right;
+     
 }
+.closeMenu{
+    font-weight: 800;
+    float: right;
+}
+.closeForm{
+    font-weight: 800;
+    left: -3rem;
+    position: relative;
+    /* float: right; */
+    /* margin-left: -34px; */
+    top: -2rem;
+}
+/* .bi-x-lg::before {
+    left: 24rem !important;
+} */
+
+.menu {
+    width: 27em;
+    margin-top: 2em;
+    border-bottom: 1px solid #C7C7C7;
+    /* margin-left: 33px; */
+}
+
+.menu_body {
+    display: inline-block;
+    width: 20em;
+    vertical-align: top;
+}
+
+.menu_image {
+    display: inline-block;
+    /* width: 8em; */
+    margin-left: 30px;
+    /* margin-right: 30px; */
+}
+
+.font_weight {
+    /* font-weight: 800; */
+    font: normal normal 600 18px/27px Poppins;
+    letter-spacing: 0px;
+    color: #292C40;
+    opacity: 1;
+}
+.input-text{
+font: normal normal normal 16px/25px Poppins;
+letter-spacing: 0px;
+color: #B4B5BC;
+opacity: 1;
+border: 1px solid #CACFD8;
+border-radius: 2px;
+opacity: 1;
+}
+.label-text{
+font: normal normal normal 16px/25px Poppins;
+letter-spacing: 0px;
+color: #192F60;
+opacity: 1;
+}
+
+.item_details {
+font: normal normal normal 13px/16px Poppins;
+letter-spacing: 0px;
+color: #696B78;
+opacity: 1;
+}
+
+.item_image {
+    height: 5em;
+    width: 5em;
+    /* display: inline-block; */
+    /* margin-top: -87px; */
+    margin-left: -5px;
+    border-radius: 7px;
+}
+
+.item_quantity_button {
+    position: relative;
+    top: -0.7rem;
+    /* right: -3.2em; */
+    background-color: #fff;
+    text-align: center;
+    width: 71px;
+    color: #61B246;
+}
+
+.qty {
+    background-color: #fff;
+    margin: 0 6px 0 6px;
+}
+
+.total {
+    display: inline-block;
+    margin: 15px 0px 0px 17px;
+}
+
+.payment_button {
+    margin: 8px 8px 0 0;
+    width: 8em;
+    float: right;
+    font: normal normal medium 18px/27px Poppins;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    opacity: 1;
+}
+
+.payment {
+    background-color: #F5F8FF;
+    width: 109%;
+    margin-left: -19px;
+    height: 4em;
+    margin-bottom: -20px;
+}
+
+button {
+    border: none;
+}
+
+.menu_restaurant_name{
+    font: normal normal 600 30px/46px Poppins;
+    letter-spacing: 0px;
+    color: #192F60;
+    opacity: 1;
+}
+
+#sign-innerpart{
+    width: 8px;
+    height: 8px;
+    background: #048002 0% 0% no-repeat padding-box;
+    border: 1px solid #048002;
+    border-radius: 4px;
+    }
+    #sign-outerpart{
+        width: 14px;
+        height: 14px;
+        border: 1px solid #048002;
+        background-color: white;
+        padding: 2px;
+        margin-bottom: 6px;
+    }
