@@ -215,6 +215,26 @@ class Filter extends React.Component{
     handleNavigate= (ss) => {
         this.props.navigate(`/details?restuarant=${ss}`);
     }
+     
+    addItems = (index, operationType) => {
+        var total = 0;
+        const items = [...this.state.restaurant];
+        const item = items[index];
+
+        if(operationType == 'add'){
+            item.length += 1;
+        } else {
+            item.length -= 1;
+        }
+
+        items[index] = item;
+
+        items.map((x) => {
+            total += x.length;
+        })
+        this.setState({ restaurant: items })
+    }
+    
 
     
     
@@ -396,19 +416,13 @@ class Filter extends React.Component{
                                 </div>
                             </div>
                                 
-                                )
-                            }) : <div className="results-2"> Sorry, No result found... </div>} 
-                            {/* )
-                     })
-                     } */}
-                                                   
-                                                                                                  
-                              
-                               
-                       
-                      
                                 
-                                {/* <!--pagination--> */}
+                                )
+                            }) : <div className="results-2"> Sorry, No result found... </div>
+                            }
+                                 
+                            
+                                 
                                 <div class="pagination">
                                     <button class="pagination_box" style={{opacity: "40%;"}}>&lt;</button>
                                     &ensp;
@@ -424,8 +438,11 @@ class Filter extends React.Component{
                                     &ensp;
                                     <button class="pagination_box">&gt;</button>     
                                 </div>
+                        </div>
+                           
+                                
                         {/* <!--pagination done--> */}
-                            </div>
+                            
                         {/* <!-- done--> */}
                     </div>
                 </div>

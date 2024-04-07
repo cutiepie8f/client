@@ -128,7 +128,7 @@
     border-radius: 6px;
     opacity: 1;
     position: relative;
-    margin-top: 45px;
+    /* margin-top: 45px; */
     margin-left: 940px;
     
 }
@@ -241,24 +241,21 @@
     top: -42px;
     left: -26em;
     float: right;
+    cursor: pointer;
      
 }
 .closeMenu{
     font-weight: 800;
     float: right;
+    cursor: pointer;
 }
 .closeForm{
     font-weight: 800;
     left: -3rem;
     position: relative;
-    /* float: right; */
-    /* margin-left: -34px; */
+   cursor: pointer;
     top: -2rem;
 }
-/* .bi-x-lg::before {
-    left: 24rem !important;
-} */
-
 .menu {
     width: 27em;
     margin-top: 2em;
