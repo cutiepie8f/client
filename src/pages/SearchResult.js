@@ -296,6 +296,7 @@ class searchResult extends React.Component{
                 <Modal
                     isOpen={formModal}
                     style={customStyles}
+                    
                 >
                     <div onClick={() => this.handleModal('formModal', false)}><i class="bi bi-x-lg closeForm"></i></div>
                     <div style={{ width: '24em' }}>
