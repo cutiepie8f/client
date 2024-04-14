@@ -81,25 +81,25 @@ class Banner extends React.Component{
                     <div>
                           <div id="background">
                             <div style= {{width:"1469px; margin-left: 18px; height: 500px;"}}>
-                            <div class="row rowspart">
+                            {/* <div class="row rowspart">
                                 <div class="col-8 "></div>
                                 <div class="col-3">
                                     <nav id="navigation_bar">
-                                        {/* <!--login and create account button--> */}
+                                      
                                         <div>
                                         <button type="button" class="me-4" id="login">Login</button>
                                         </div>
                                         <div>
                                         <button type="button" id="create_account" class="btn btn-outline-light">Create an account</button>
                                     </div>
-                                    {/* <!--done--> */}
+                                   
                                 </nav>
-                                {/* <!--navigation done--> */}
+                               
                                 </div>
                                
-                                {/* <!--coloumn-1--> */}
+                                
                                 <div class="col-1"></div>
-                        </div>
+                            </div> */}
                             {/* <!--navigation row-1 done--> */}
                             {/* <!--logo start--> */}
                             <div class="row rowspart">
