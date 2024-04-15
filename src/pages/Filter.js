@@ -188,7 +188,6 @@ class Filter extends React.Component{
      // handle Page
     handlePage = (page) => {
         const { loca, Cuisine, lcost, hcost, sort, mealtype } = this.state;
-        
         const filterObj = {
             location: loca,
             lcost,
@@ -211,6 +210,7 @@ class Filter extends React.Component{
         .catch((err => console.log(err)))
     }
 
+    
     // Navigate
     handleNavigate= (ss) => {
         this.props.navigate(`/details?restuarant=${ss}`);
@@ -256,18 +256,6 @@ class Filter extends React.Component{
                             <div style={{width: "1200px;" ,margin: "auto;"}}>
                                 {/* <!--logo--> */}
                                 <div id="logo-label">e!</div>
-                                {/* <!--done--> */}
-                                
-                                {/* <!--login and create account button--> */}
-                                <a href="">
-                                    <div id="login_button">
-                                    <h3>Login</h3>
-                                    </div>
-                                </a>
-                                <div id="create_account">
-                                    <button id="create_account_button">Create an account</button>
-                                    
-                                </div>
                                 {/* <!--done--> */}
                             </div>
                     </div>
@@ -424,7 +412,7 @@ class Filter extends React.Component{
                             
                                  
                                 <div class="pagination">
-                                    <button class="pagination_box" style={{opacity: "40%;"}}>&lt;</button>
+                                    <button class="pagination_box" style={{opacity: "40%;"}}  onClick={() => this.handlePrevClick()}>&lt;</button>
                                     &ensp;
                                     <button class="pagination_box" style={{backgroundcolor: "#8C96AB;", color: "#FFFFFF;"}}  onClick={() => this.handlePage(1)}>1</button>
                                     &ensp;
@@ -436,8 +424,10 @@ class Filter extends React.Component{
                                     &ensp;
                                     <button class="pagination_box"  onClick={() => this.handlePage(5)}>5</button>
                                     &ensp;
-                                    <button class="pagination_box">&gt;</button>     
+                                    <button class="pagination_box" onClick={() => this.handlePrevClick}>&gt;</button>     
                                 </div>
+
+                                
                         </div>
                            
                                 

@@ -64,7 +64,7 @@
                 color: #192F60;
                 opacity: 0.8;
                 position: absolute;
-                margin: 70px 0 0 58px;
+                margin: 38px 0 0 58px;
             }
             #facebook{
             width: 28px;
@@ -85,7 +85,7 @@
             color: #192F60;
             opacity: 0.8;
             position: absolute;
-            margin: 17px 0 0 54px;
+            margin: 0 0 0 54px;
             }
             .signup-decoration{
                 text-decoration: unset;
@@ -107,6 +107,13 @@
                 color: white !important;
                 background-color: unset !important;
             }
-            .close{
-                margin-left: 30rem;
-            }
+            .closeButton{
+
+                .bi-x-lg::before {
+                    position: absolute;
+                    top: 38px;
+                    left: 30rem;
+                    color: #192F60;
+                    font-size: 18px;
+                }
+        }

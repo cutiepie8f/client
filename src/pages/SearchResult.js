@@ -140,21 +140,14 @@ class searchResult extends React.Component{
              return(
                 <div>
                     
-                        <div id="header">
+                    <div id="header">
                             {/* <!--header part--> */}
                             <div id="headerPart">
                                 <div id="logo">
                                     <label id="logo_name">e!</label>
                                 </div>
-                                <a href="">
-                                    <div id="loginButton">
-                                        <h2 id="login_text">Login</h2>
-                                    </div>
-                                </a>
-                                </div>
-                                <div id="createAccount">
-                                    <button id="create_account-text">Create an account</button>
-                                </div>
+                                
+                            </div>
                         </div>
                
                         {/* <!--header part complete--> */}

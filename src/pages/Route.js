@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./home";
 import Filter from "./Filter";
 import SearchResult from "./SearchResult";
-import SearchImage from "./SearchImage";
 import Header from './Header';
 import { useEffect, useState } from 'react';
 
@@ -43,7 +42,6 @@ const Router = () =>{
               <Route path="/" element={<Home />} />
               <Route path="/filter" element={<Filter />} />
               <Route path="/details" element={<SearchResult />} />
-              <Route path="/searchImage" element={<SearchImage />} />
           </Routes>
         </BrowserRouter>
     )

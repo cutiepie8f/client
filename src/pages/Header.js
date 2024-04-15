@@ -107,9 +107,8 @@ class Header extends React.Component{
            
                     <div>
                         <h4 style={{color: "#192F60;" }}  id="login-modal">Login</h4>
-                        <div onClick={() => this.handleModal('loginModal', false)} ><i class="bi bi-x-lg close"></i></div>
+                        <div onClick={() => this.handleModal('loginModal', false)}  className="closeButton"><i class="bi bi-x-lg close"></i></div>
                     </div>
-                    
                     <div>
                         <div className="m-5">
                             {/* <input type="button" className="btn btn-outline-success px-4 " value="GOOGLE" onClick={this.google} /> */}
