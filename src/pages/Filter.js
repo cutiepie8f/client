@@ -16,7 +16,9 @@ class Filter extends React.Component{
             Cuisine: [],
             sort: 1, 
             page: 1,
-            meals: []
+            meals: [],
+            pageNum : 1,
+            pageprev : 5
           
         }
     }
@@ -197,7 +199,7 @@ class Filter extends React.Component{
             page, 
             mealtype
         }
-
+        
         axios({
             url: 'http://localhost:8000/filter',
             method: 'POST',
@@ -208,9 +210,63 @@ class Filter extends React.Component{
             this.setState({ restaurant: res.data.restraunts, page })
         })
         .catch((err => console.log(err)))
+
     }
 
-    
+    handlePrevButton = (page)=>{
+        const { loca, Cuisine, lcost, hcost, sort, mealtype } = this.state;
+        var {pageprev} = this.state;
+        const filterObj = {
+            location: loca,
+            lcost,
+            hcost,
+            Cuisine,
+            sort,
+            page, 
+            mealtype
+        }
+        
+        axios({
+            url: 'http://localhost:8000/filter',
+            method: 'POST',
+            headers: { 'Content-Type': 'application/JSON'},
+            data: filterObj
+        })
+        .then( res => {
+            this.setState({ restaurant: res.data.restraunts, page })
+        })
+        .catch((err => console.log(err)))
+
+        this.setState({ pageprev: pageprev-1 })
+    }
+
+    handleNextButton = (page)=>{
+        const { loca, Cuisine, lcost, hcost, sort, mealtype } = this.state;
+        var{pageNum} = this.state;
+        const filterObj = {
+            location: loca,
+            lcost,
+            hcost,
+            Cuisine,
+            sort,
+            page, 
+            mealtype
+        }
+        
+        axios({
+            url: 'http://localhost:8000/filter',
+            method: 'POST',
+            headers: { 'Content-Type': 'application/JSON'},
+            data: filterObj
+        })
+        .then( res => {
+            this.setState({ restaurant: res.data.restraunts, page })
+        })
+        .catch((err => console.log(err)))
+
+        this.setState({ pageNum: pageNum+1 })
+    }
+     
     // Navigate
     handleNavigate= (ss) => {
         this.props.navigate(`/details?restuarant=${ss}`);
@@ -242,15 +298,13 @@ class Filter extends React.Component{
    render(){
     // const {meals} = this.state;
     const { meals, loc, restaurant, rest } = this.state;
-    console.log(meals);
+    var { pageNum,pageprev} = this.state;
 
 
     
         return(
               
             <div>
-                {/* <div id="filter-section"> */}
-                    
                     {/* <!--header--> */}
                     <div id="header">
                             <div style={{width: "1200px;" ,margin: "auto;"}}>
@@ -269,7 +323,7 @@ class Filter extends React.Component{
                                          return(
                                             <div id="main_heading">
                                                 {console.log(res)}
-                                            <h2 className='mealtype-header'>{res.name} Places in Mumbai</h2>
+                                            <h2 className='mealtype-header'>{res.name} Places</h2>
                                             </div>
 
                                            
@@ -402,17 +456,17 @@ class Filter extends React.Component{
                                         <p class="result-text-blue">₹{res.cost}</p>
                                     </div>
                                 </div>
+
                             </div>
                                 
-                                
-                                )
+                                 )
                             }) : <div className="results-2"> Sorry, No result found... </div>
                             }
                                  
                             
                                  
                                 <div class="pagination">
-                                    <button class="pagination_box" style={{opacity: "40%;"}}  onClick={() => this.handlePrevClick()}>&lt;</button>
+                                    <button class="pagination_box" style={{opacity: "40%;"}}  onClick={() => this.handlePrevButton(pageprev)}>&lt;</button>
                                     &ensp;
                                     <button class="pagination_box" style={{backgroundcolor: "#8C96AB;", color: "#FFFFFF;"}}  onClick={() => this.handlePage(1)}>1</button>
                                     &ensp;
@@ -424,11 +478,9 @@ class Filter extends React.Component{
                                     &ensp;
                                     <button class="pagination_box"  onClick={() => this.handlePage(5)}>5</button>
                                     &ensp;
-                                    <button class="pagination_box" onClick={() => this.handlePrevClick}>&gt;</button>     
-                                </div>
-
-                                
-                        </div>
+                                    <button class="pagination_box" onClick={() => this.handleNextButton(pageNum)}>&gt;</button>
+                                    </div>
+                              </div>
                            
                                 
                         {/* <!--pagination done--> */}
