@@ -114,10 +114,14 @@ class searchResult extends React.Component{
         const rzp = new window.Razorpay(options);
         rzp.open();
     }
+    
+    
+
+    
 
     handlePayment = async() => {
         const { subtotal } = this.state;
-
+    
         try{
             const orderLink = "http://localhost:8000/api/payment/orders";
             const { data } = await axios.post(orderLink, { amount: subtotal });
@@ -127,13 +131,52 @@ class searchResult extends React.Component{
         } catch (error) {
             console.log(error);
         }
+         
+}
+
+handleName  = (val) => {
+     const name = val.target.value;
+     this.setState({name : name})
+     
+}
+
+handleMobile  = (val) => {
+    const mobile = val.target.value;
+    this.setState({mobile : mobile})
+     
+}
+
+handleAddress  = (val) => {
+    const address = val.target.value;
+    this.setState({address : address})
+     
+}
+
+handleProceed = async() => {
+    const { name, mobile, address, subtotal } = this.state;
+
+    const userObj ={
+        name : name,
+        mobile_number : mobile,
+        address : address,
+        subtotal : subtotal
     }
+    
+        try{
+            
+            const userData = "http://localhost:8000/userdetails";
+            const {data} = await axios.post(userData, userObj);
+
+        } catch (error) {
+            console.log(error);
+        }
+    
+}
 
 
 
-    // selectRestaurant = (ss) => {
-    //     this.props.navigate(`/searchImage?restuarant=${ss}`);
-    // }
+
+
           render(){
             const { restaurant, galleryModal, menuModal, menu, subtotal, formModal } = this.state;
             console.log(menu);
@@ -295,17 +338,17 @@ class searchResult extends React.Component{
                     <div style={{ width: '24em' }}>
                         <h3 className="menu_restaurant_name">{restaurant.name}</h3>
 
-                        <label htmlFor="name" className='label-text' style={{ marginTop: '10px' }}>Name</label>
-                        <input type="text" placeholder="Enter your name" style={{ width: '100%'}} className="form-control input-text" id="name" />
+                        <label htmlFor="name" className='label-text' style={{ marginTop: '10px' }} >Name</label>
+                        <input type="text" placeholder="Enter your name" style={{ width: '100%'}} className="form-control input-text" id="name" onChange={this.handleName} />
 
                         <label htmlFor="mobile" className='label-text' style={{ marginTop: '10px' }}>Mobile Number</label>
-                        <input type="text" placeholder="Enter mobile number" style={{ width: '100%'}} className="form-control input-text" id="mobile" />
+                        <input type="text" placeholder="Enter mobile number" style={{ width: '100%'}} className="form-control input-text" id="mobile" onChange={this.handleMobile} />
 
                         <label htmlFor="address" className='label-text' style={{ marginTop: '10px' }}>Address</label>
-                        <textarea type="text" rows="4" placeholder="Enter your address" style={{ width: '100%'}} className="form-control input-text" id="address">
+                        <textarea type="text" rows="4" placeholder="Enter your address" style={{ width: '100%'}} className="form-control input-text" id="address" onChange={this.handleAddress}>
                         </textarea>
 
-                        <button className="btn btn-success" style={{ float: "right", marginTop: "18px" }} onClick={this.handlePayment}>Proceed</button>
+                        <button className="btn btn-success" style={{ float: "right", marginTop: "18px" }} onClick= {() => {this.handlePayment();this.handleProceed();}}>Proceed</button>
                     </div>
                 </Modal>
 
