@@ -153,7 +153,7 @@ handleAddress  = (val) => {
 }
 
 handleProceed = async() => {
-    const { name, mobile, address, subtotal } = this.state;
+    const { name, mobile, address, subtotal} = this.state;
 
     const userObj ={
         name : name,
