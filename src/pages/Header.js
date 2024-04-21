@@ -134,7 +134,7 @@ class Header extends React.Component{
                               </a> */}
                               <hr id="modalLine"/>
                               <a href="#" class="link-underline-light login-decoration">
-                                 <span id="modal-footerPart">Don’t have account? </span>
+                                 <span id="modal-footerPart">Already have an account? </span>
                                  <span style={{color: "#ED5A6B"}}>Login</span>
                               </a>
                         

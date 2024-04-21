@@ -71,13 +71,17 @@ class Filter extends React.Component{
     }
     // POST location API
     handleLocation = (val) => {
-        const { lcost, hcost } = this.state;
+        const { lcost, hcost, Cuisine, sort, page, mealtype} = this.state;
         const loca = val.target.value;
         
         const filterObj = {
             location: loca,
             lcost,
-            hcost
+            hcost,
+            Cuisine,
+            sort, 
+            page,
+            mealtype
         }
 
         axios({
@@ -105,12 +109,16 @@ class Filter extends React.Component{
     }
 
     handleCost = (lcost, hcost) => {
-        const { loca } = this.state;
+        const { loca, Cuisine, sort, page, mealtype } = this.state;
         
         const filterObj = {
             location: loca,
             lcost,
-            hcost
+            hcost,
+            Cuisine,
+            sort, 
+            page, 
+            mealtype
         }
 
         axios({
@@ -468,7 +476,7 @@ class Filter extends React.Component{
                                 <div class="pagination">
                                     <button class="pagination_box" style={{opacity: "40%;"}}  onClick={() => this.handlePrevButton(pageprev)}>&lt;</button>
                                     &ensp;
-                                    <button class="pagination_box" style={{backgroundcolor: "#8C96AB;", color: "#FFFFFF;"}}  onClick={() => this.handlePage(1)}>1</button>
+                                    <button class="pagination_box" style={{backgroundcolor: "#8C96AB;", color: "#FFFFFF;"}} onClick={() => this.handlePage(1)}>1</button>
                                     &ensp;
                                     <button class="pagination_box"  onClick={() => this.handlePage(2)}>2</button>
                                     &ensp;
